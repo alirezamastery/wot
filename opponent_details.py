@@ -139,13 +139,13 @@ def show_battles(battles):
 
 
 if __name__ == '__main__':
-    battles = list()
-    with open('clan_battles.json', 'r') as file:
-        data = json.load(file)
-    for d in data['data']:
-        d['clan_details'] = get_clan_name(d['competitor_id'])
-        battles.append(d)
-    # battles = get_battles()
+    # battles = list()
+    # with open('development/clan_battles.json', 'r') as file:
+    #     data = json.load(file)
+    # for d in data['data']:
+    #     d['clan_details'] = get_clan_name(d['competitor_id'])
+    #     battles.append(d)
+    battles = get_battles()
     clan_index = show_battles(battles)
     if clan_index > -1:
         get_clan_detail(battles, clan_index)
