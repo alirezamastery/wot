@@ -1,4 +1,3 @@
-import requests
 import json
 from assets.browser import Browser
 from assets.api_call import get_clan_name, show_battles, get_battles
@@ -15,8 +14,9 @@ def print_pretty(data):
 
 
 LOOP = False
+
 if __name__ == '__main__':
-    browser = Browser(headless=True, active_only=True)
+    browser = Browser(headless=False, active_only=True)
     while True:
 
         battles = list()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         filtered_data = browser.filter_data()
         print_pretty(filtered_data)
 
-        if not LOOP:
+        if not LOOP:  # the second time the page is loaded json file con not be found so we can't loop!
             break
 
         while True:

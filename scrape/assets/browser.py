@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
-from scrape.assets.api_call import get_player_has_chieftain
+from .api_call import get_player_has_chieftain
 
 
 class Browser:
@@ -56,7 +56,7 @@ class Browser:
             if log['method'] == 'Network.responseReceived' and \
                     'json' in log['params']['response']['mimeType'] and \
                     log['params']['type'] == 'XHR':
-                print(log['params']['response']['url'])
+                # print(log['params']['response']['url'])
                 request_id = log['params']['requestId']
                 data_as_str = self.driver.execute_cdp_cmd('Network.getResponseBody', {'requestId': request_id})
                 data = json.loads(data_as_str['body'])

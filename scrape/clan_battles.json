@@ -1,0 +1,96 @@
+{
+    "status": "ok",
+    "meta": {
+        "count": 8
+    },
+    "data": [
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500033375,
+            "time": 1610474401,
+            "vehicle_level": 10,
+            "province_id": "pereslavlzalessky",
+            "type": "attack",
+            "province_name": "Pereslavl-Zalessky"
+        },
+        {
+            "attack_type": "auction",
+            "front_id": "renaissance_eu_league2",
+            "front_name": "renaissance_eu_league2",
+            "competitor_id": 500065360,
+            "time": 1610474415,
+            "vehicle_level": 10,
+            "province_id": "cologne",
+            "type": "attack",
+            "province_name": "Cologne"
+        },
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500156303,
+            "time": 1610474418,
+            "vehicle_level": 10,
+            "province_id": "vereshchagino",
+            "type": "attack",
+            "province_name": "Vereshchagino"
+        },
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500164656,
+            "time": 1610475310,
+            "vehicle_level": 10,
+            "province_id": "sharanga",
+            "type": "attack",
+            "province_name": "Sharanga"
+        },
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500034555,
+            "time": 1610475317,
+            "vehicle_level": 10,
+            "province_id": "ufa",
+            "type": "attack",
+            "province_name": "Ufa"
+        },
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500049540,
+            "time": 1610477119,
+            "vehicle_level": 10,
+            "province_id": "sharanga",
+            "type": "attack",
+            "province_name": "Sharanga"
+        },
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500143851,
+            "time": 1610478003,
+            "vehicle_level": 10,
+            "province_id": "kimovsk",
+            "type": "attack",
+            "province_name": "Kimovsk"
+        },
+        {
+            "attack_type": "tournament",
+            "front_id": "renaissance_eu_league1",
+            "front_name": "renaissance_eu_league1",
+            "competitor_id": 500050744,
+            "time": 1610478906,
+            "vehicle_level": 10,
+            "province_id": "ozyorny",
+            "type": "attack",
+            "province_name": "Ozyorny"
+        }
+    ]
+}
