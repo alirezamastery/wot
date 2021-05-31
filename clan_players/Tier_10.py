@@ -34,6 +34,9 @@ for tier in SELECTED_TANKS.values():
         for tank_id, tank_name in group['tanks'].items():
             SELECTED_TANKS_FLAT[tank_id] = tank_name
 
+# +-----------------------------------------------------------------------+
+# | Get Data from server                                                  |
+# +-----------------------------------------------------------------------+
 clan_details_url = f'https://api.worldoftanks.eu/wot/clans/info/?application_id={APPLICATION_ID}&clan_id=500071718'
 clan_details_raw = requests.get(clan_details_url)
 clan_details = clan_details_raw.json()
@@ -197,12 +200,14 @@ worksheet.set_column(table_end_col, table_end_col, 12)
 # write rows
 row = 3
 for i, (name, details) in enumerate(clan_members_details.items(), 1):
+    # player stats
     format_selector = 'even' if i % 2 == 0 else 'odd'
     worksheet.write(row, 0, i, table_formats[f'table_format_{format_selector}'])
     worksheet.write(row, 1, name, table_formats[f'name_format_{format_selector}'])
     worksheet.write(row, 2, details['role'], table_formats[f'table_format_{format_selector}'])
     worksheet.write_number(row, 3, details['Personal'], table_formats[f'number_format_{format_selector}'])
     worksheet.write_number(row, 4, details['Battles'], table_formats[f'number_format_{format_selector}'])
+    # player tanks info
     col = 5
     tanks = 0
     for tank_id in SELECTED_TANKS_FLAT.keys():
