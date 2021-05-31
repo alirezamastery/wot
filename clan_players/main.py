@@ -1,7 +1,7 @@
 import requests
 import xlsxwriter
 # import json
-from statics import TIER_10, TANKS_COLORS_BY_ID, MUST_HAVE
+from statics import LOGO, TIER_10, TANKS_COLORS_BY_ID, MUST_HAVE
 
 
 CONNECTION_EXCEPTION_MSG = 'There was an error in connection to the server'
@@ -26,17 +26,7 @@ def get_player_info(account_id):
     return player_info['data'][str(account_id)]
 
 
-logo = """
-
-  ██████╗  █████╗ ██████╗ ███████╗
-  ██╔══██╗██╔══██╗██╔══██╗██╔════╝
-  ██████╔╝███████║██████╔╝███████╗
-  ██╔═══╝ ██╔══██║██╔══██╗╚════██║
-  ██║     ██║  ██║██║  ██║███████║
-  ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-                                
-"""
-print(logo)
+print(LOGO)
 
 clan_details_url = f'https://api.worldoftanks.eu/wot/clans/info/?application_id={APPLICATION_ID}&clan_id=500071718'
 clan_details_raw = requests.get(clan_details_url)
@@ -164,3 +154,5 @@ for i, (name, details) in enumerate(clan_members_details.items(), 1):
 workbook.close()
 
 input('\nResults saved in "tanks.xlsx". press any key to exit\n')
+
+
