@@ -1,0 +1,141 @@
+ODD_COLOR = '#FABF8F'
+
+
+def get_workbook_formats(workbook):
+    return {
+        # table
+        'name_even':      workbook.add_format({
+            'border': True,
+            'align':  'left',
+            'valign': 'vcenter',
+            'bold':   True,
+        }),
+        'name_odd':       workbook.add_format({
+            'border':   True,
+            'align':    'left',
+            'valign':   'vcenter',
+            'bold':     True,
+            'bg_color': ODD_COLOR,
+        }),
+        'number_even':    workbook.add_format({
+            'border':     True,
+            'align':      'left',
+            'valign':     'vcenter',
+            'num_format': '#,###',
+        }),
+        'number_odd':     workbook.add_format({
+            'border':     True,
+            'align':      'left',
+            'valign':     'vcenter',
+            'num_format': '#,###',
+            'bg_color':   ODD_COLOR
+        }),
+        'table_even':     workbook.add_format({
+            'border':   True,
+            'bg_color': '#FFFFFF',
+            'align':    'left',
+            'valign':   'vcenter',
+        }),
+        'table_odd':      workbook.add_format({
+            'border':   True,
+            'align':    'left',
+            'valign':   'vcenter',
+            'bg_color': '#FABF8F',
+        }),
+        # colors
+        '#0594FF':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '9',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#0594FF',
+        }),
+        '#00B050':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '9',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#00B050',
+        }),
+        '#954ECA':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '9',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#954ECA',
+        }),
+        '#FFFF00':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '16',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#FFFF00',
+        }),
+        '#B1A0C7':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '16',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#B1A0C7',
+        }),
+        '#8DB4E2':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '16',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#8DB4E2',
+        }),
+        '#C4D79B':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '16',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#C4D79B',
+        }),
+        '#FFC000':        workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '16',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#FFC000',
+        }),
+        # general
+        'general_header': workbook.add_format({
+            'border':    True,
+            'align':     'center',
+            'valign':    'vcenter',
+            'font_size': '12',
+            'text_wrap': True,
+            'bold':      True,
+            'bg_color':  '#DA9694',
+        }),
+        'in_garage':      workbook.add_format({
+            'border':     True,
+            'align':      'center',
+            'valign':     'vcenter',
+            'num_format': '#,###',
+            'bg_color':   '#92D050',
+        }),
+        'total_tanks':    workbook.add_format({
+            'border':   True,
+            'align':    'center',
+            'valign':   'vcenter',
+            'bg_color': '#FFFF00',
+        }),
+    }
