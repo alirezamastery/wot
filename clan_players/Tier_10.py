@@ -2,8 +2,8 @@ import ctypes
 import requests
 from xlsxwriter import Workbook
 
-from utils import get_workbook_formats
-from statics import LOGO, SELECTED_TANKS
+from clan_players.assets.utils import get_workbook_formats
+from clan_players.assets.statics import LOGO, SELECTED_TANKS
 
 
 # settings for console so it can show ANSI escape:
@@ -71,8 +71,6 @@ clan_members = get_clan_members()
 clan_members_details = dict()
 
 for i, member in enumerate(clan_members):
-    if i > 3:
-        break
     account_id = member['account_id']
     account_name = member['account_name']
     if account_name == 'HAJJ_ABBAS':

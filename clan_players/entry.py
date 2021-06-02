@@ -23,7 +23,7 @@ import json
 #     tier_10 = sorted(tier_10, key=lambda v: v.upper())
 #     print(tier_10)
 
-from statics import TIER_10_LONGNAME
+from clan_players.assets.statics import TIER_10_LONGNAME
 
 
 tier_10 = dict()
