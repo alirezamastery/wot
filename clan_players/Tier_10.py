@@ -1,8 +1,8 @@
 import ctypes
-import requests
 from xlsxwriter import Workbook
 
-from clan_players.assets.utils import get_workbook_formats
+from assets import utils
+from clan_players.assets.workbook_formats import get_workbook_formats
 from clan_players.assets.statics import LOGO, SELECTED_TANKS
 
 
@@ -12,65 +12,17 @@ kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
 RESET = '\033[0m'
 GREEN = '\033[38;5;40m'
 
-CONNECTION_EXCEPTION_MSG = 'There was an error in connection to the server'
-APPLICATION_ID = '0ccfb285e3be979fc9d0ab20e7f05703'
-
-
-def get_clan_members():
-    clan_details_url = f'https://api.worldoftanks.eu/wot/clans/info/?application_id={APPLICATION_ID}&clan_id=500071718'
-    clan_details_raw = requests.get(clan_details_url)
-    clan_details = clan_details_raw.json()
-    if not clan_details['status'] == 'ok':
-        raise RuntimeError(CONNECTION_EXCEPTION_MSG)
-    return clan_details['data']['500071718']['members']
-
-
-def get_player_vehicles(account_id):
-    player_vehicles_url = f'https://api.worldoftanks.eu/wot/account/tanks/?application_id={APPLICATION_ID}&account_id={account_id}'
-    player_vehicles_raw = requests.get(player_vehicles_url)
-    player_vehicles = player_vehicles_raw.json()
-    if player_vehicles['status'] != 'ok':
-        raise RuntimeError(CONNECTION_EXCEPTION_MSG)
-    return player_vehicles['data'][str(account_id)]
-
-
-def get_player_info(account_id):
-    player_info_url = f'https://api.worldoftanks.eu/wot/account/info/?application_id={APPLICATION_ID}&account_id={account_id}'
-    player_info_raw = requests.get(player_info_url)
-    player_info = player_info_raw.json()
-    if player_info['status'] != 'ok':
-        raise RuntimeError(CONNECTION_EXCEPTION_MSG)
-    return player_info['data'][str(account_id)]
-
-
-def flatten_tank_tiers(tank_tiers: dict):
-    result = dict()
-    for tier in tank_tiers.values():
-        for group in tier['groups'].values():
-            for tank_id, tank_name in group['tanks'].items():
-                result[tank_id] = tank_name
-    return result
-
-
-def filter_player_tanks(tanks: dict):
-    filtered_tanks = list()
-    for tank in tanks:
-        if str(tank['tank_id']) in SELECTED_TANKS_FLAT:
-            filtered_tanks.append(tank)
-    return filtered_tanks
-
-
 print(LOGO)
 
-SELECTED_TANKS_FLAT = flatten_tank_tiers(SELECTED_TANKS)
+SELECTED_TANKS_FLAT = utils.flatten_tank_tiers(SELECTED_TANKS)
 
 # +-----------------------------------------------------------------------+
 # | Get Data from server                                                  |
 # +-----------------------------------------------------------------------+
-clan_members = get_clan_members()
-clan_members_details = dict()
+member_identifiers = utils.get_clan_member_ids()
+member_details = dict()
 
-for i, member in enumerate(clan_members):
+for i, member in enumerate(member_identifiers):
     account_id = member['account_id']
     account_name = member['account_name']
     if account_name == 'HAJJ_ABBAS':
@@ -79,14 +31,14 @@ for i, member in enumerate(clan_members):
         print(f' {account_name}')
     account_details = dict()
     account_details['role'] = member['role'].capitalize()
-    account_info = get_player_info(account_id)
-    account_details['Personal'] = account_info['global_rating']
-    account_details['Battles'] = account_info['statistics']['all']['battles']
-    tanks = get_player_vehicles(account_id)
-    account_details['tanks'] = filter_player_tanks(tanks)
-    clan_members_details[account_name] = account_details
+    account_stats = utils.get_player_stats(account_id)
+    account_details['Personal'] = account_stats['global_rating']
+    account_details['Battles'] = account_stats['statistics']['all']['battles']
+    tanks = utils.get_player_vehicles(account_id)
+    account_details['tanks'] = utils.filter_player_tanks(tanks, SELECTED_TANKS_FLAT)
+    member_details[account_name] = account_details
 
-clan_members_details = dict(sorted(clan_members_details.items(), key=lambda v: v[0].upper()))
+member_details = dict(sorted(member_details.items(), key=lambda v: v[0].upper()))
 
 # +-----------------------------------------------------------------------+
 # | Excel output                                                          |
@@ -121,18 +73,16 @@ start_col = 5
 for (tier, details) in SELECTED_TANKS.items():
     # tier name in first row
     groups_length = sum([len(group['tanks']) for group in details['groups'].values()])
-    worksheet.merge_range(0, start_col, 0, start_col + groups_length - 1, tier,
-                          formats[details['color']])
+    worksheet.merge_range(0, start_col, 0, start_col + groups_length - 1, tier, formats[details['color']])
     # group names in second row
-    group_merge_start = start_col
+    group_start = start_col
     for name, group in details['groups'].items():
         group_length = len(group['tanks'])
-        worksheet.merge_range(1, group_merge_start, 1, group_merge_start + group_length - 1, name,
-                              formats[group['color_header']])
+        worksheet.merge_range(1, group_start, 1, group_start + group_length - 1, name, formats[group['color_header']])
         # each tank in third row
         for i, tank in enumerate(group['tanks'].values()):
-            worksheet.write(2, group_merge_start + i, tank, formats[group['color_tank']])
-        group_merge_start += group_length
+            worksheet.write(2, group_start + i, tank, formats[group['color_tank']])
+        group_start += group_length
     start_col += groups_length
 
 worksheet.merge_range(0, table_end_col, 2, table_end_col, 'Total Tanks', formats['total_tanks'])
@@ -140,7 +90,7 @@ worksheet.set_column(table_end_col, table_end_col, 12)
 
 # write rows
 row = 3
-for i, (name, details) in enumerate(clan_members_details.items(), 1):
+for i, (name, details) in enumerate(member_details.items(), 1):
     # player stats
     format_selector = 'even' if i % 2 == 0 else 'odd'
     worksheet.write(row, 0, i, formats[f'table_{format_selector}'])
