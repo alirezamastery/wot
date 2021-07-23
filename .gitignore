@@ -3,3 +3,5 @@
 /development/
 /dist/
 /build/
+/drivers/
+*.xlsx

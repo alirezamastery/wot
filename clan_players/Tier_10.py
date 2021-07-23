@@ -2,8 +2,8 @@ import ctypes
 from xlsxwriter import Workbook
 
 from assets import utils
-from clan_players.assets.workbook_formats import get_workbook_formats
-from clan_players.assets.statics import LOGO, SELECTED_TANKS
+from assets.workbook_formats import get_workbook_formats
+from assets.statics import LOGO, SELECTED_TANKS
 
 
 # settings for console so it can show ANSI escape:
