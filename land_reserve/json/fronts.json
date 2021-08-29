@@ -1,0 +1,64 @@
+{
+  "status": "ok",
+  "meta": {
+    "count": 2
+  },
+  "data": [
+    {
+      "front_name": "season_16_eu_tier10m",
+      "max_tanks_per_division": 15,
+      "fog_of_war": true,
+      "division_cost": 0,
+      "min_vehicle_level": 10,
+      "avg_clans_rating": 1308,
+      "is_active": true,
+      "vehicle_freeze": true,
+      "avg_won_bet": 2940,
+      "provinces_count": 500,
+      "available_extensions": [
+        {
+          "wage": 0,
+          "name": "Engineer Battalion",
+          "description_tactical": null,
+          "cost": 0,
+          "description_strategic": "Module enables you to increase a Division's speed.<br>Relocation cooldown: -0%",
+          "extension_id": "ENGINEER"
+        }
+      ],
+      "max_vehicle_level": 10,
+      "min_tanks_per_division": 12,
+      "battle_time_limit": 15,
+      "is_event": false,
+      "avg_min_bet": 1345,
+      "front_id": "season_16_eu_tier10m"
+    },
+    {
+      "front_name": "season_16_eu_tier8m",
+      "max_tanks_per_division": 10,
+      "fog_of_war": true,
+      "division_cost": 0,
+      "min_vehicle_level": 8,
+      "avg_clans_rating": 1135,
+      "is_active": true,
+      "vehicle_freeze": true,
+      "avg_won_bet": 957,
+      "provinces_count": 300,
+      "available_extensions": [
+        {
+          "wage": 0,
+          "name": "Engineer Battalion",
+          "description_tactical": null,
+          "cost": 0,
+          "description_strategic": "Module enables you to increase a Division's speed.<br>Relocation cooldown: -0%",
+          "extension_id": "ENGINEER"
+        }
+      ],
+      "max_vehicle_level": 8,
+      "min_tanks_per_division": 8,
+      "battle_time_limit": 15,
+      "is_event": false,
+      "avg_min_bet": 140,
+      "front_id": "season_16_eu_tier8m"
+    }
+  ]
+}

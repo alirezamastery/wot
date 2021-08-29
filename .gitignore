@@ -1,7 +1,8 @@
 /venv/
+/.idea/
 /development/driver/
 /development/
-/dist/
-/build/
+dist/
+build/
 /drivers/
 *.xlsx

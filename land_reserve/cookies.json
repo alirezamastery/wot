@@ -1,0 +1,65 @@
+[
+  {
+    "domain": "eu.wargaming.net",
+    "expiry": 1631796343,
+    "httpOnly": false,
+    "name": "_gcl_au",
+    "path": "/",
+    "secure": false,
+    "value": "1.1.556682630.1624020344"
+  },
+  {
+    "domain": "eu.wargaming.net",
+    "httpOnly": false,
+    "name": "wgni_use_browser_history_update",
+    "path": "/",
+    "secure": false,
+    "value": "qKGLxr0jRDzvuvRRNq9IplljflMJjzlC"
+  },
+  {
+    "domain": "eu.wargaming.net",
+    "httpOnly": false,
+    "name": "stat_id",
+    "path": "/",
+    "secure": false,
+    "value": "none"
+  },
+  {
+    "domain": "eu.wargaming.net",
+    "expiry": 1939380337,
+    "httpOnly": false,
+    "name": "cm.internal.bs_id",
+    "path": "/",
+    "sameSite": "None",
+    "secure": true,
+    "value": "2ad9c5c3-f2ed-4d3b-051c-5789e147d76a"
+  },
+  {
+    "domain": "eu.wargaming.net",
+    "expiry": 1624106742,
+    "httpOnly": true,
+    "name": "wgni_sessionid",
+    "path": "/id/",
+    "sameSite": "None",
+    "secure": true,
+    "value": "t80mxg5vpmu5aezl7q9r08wr9gll726e"
+  },
+  {
+    "domain": "eu.wargaming.net",
+    "expiry": 1655469942,
+    "httpOnly": false,
+    "name": "wgni_csrftoken",
+    "path": "/id/",
+    "secure": false,
+    "value": "9dDjK0AvouOKMD32TEiOIA0yURJ304zY"
+  },
+  {
+    "domain": "eu.wargaming.net",
+    "expiry": 1625229934,
+    "httpOnly": false,
+    "name": "wgni_language",
+    "path": "/id/",
+    "secure": false,
+    "value": "en"
+  }
+]
