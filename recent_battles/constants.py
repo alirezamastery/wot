@@ -1,0 +1,1 @@
+XPATH_GM10_7DAYS = '/html/body/main/div[5]/div/div[2]/table[1]/tbody/tr[2]/td[3]'
