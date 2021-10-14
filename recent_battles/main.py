@@ -1,8 +1,11 @@
-import requests
-from pprint import pprint
+import datetime as dt
+from operator import itemgetter
 
+import requests
 from xlsxwriter import Workbook
 from bs4 import BeautifulSoup
+
+from assets.statics import LOGO
 
 
 CONNECTION_EXCEPTION_MSG = 'There was an error in connection to the server'
@@ -17,10 +20,34 @@ def get_clan_member_ids():
     return response['data']['500071718']['members']
 
 
+ODD_COLOR = '#FCD5B4'
+
+
+def get_workbook_formats(workbook):
+    return {
+        'name_even': workbook.add_format({
+            'border': True,
+            'align':  'center',
+            'valign': 'vcenter',
+            'bold':   True,
+        }),
+        'name_odd':  workbook.add_format({
+            'border':   True,
+            'align':    'center',
+            'valign':   'vcenter',
+            'bold':     True,
+            'bg_color': ODD_COLOR,
+        }),
+    }
+
+
 class Robot:
-    excel_headers = ['Name', 'Stats', 'GM 10', 'GM 8', 'Skirmish', 'Stronghold']
+    excel_headers = ['Name', 'Random', 'GM 10', 'GM 8', 'Skirmish', 'Stronghold', 'Sum (without random)']
 
     def __init__(self):
+        print(LOGO)
+        print()
+        print('Getting Battles of Clan Members in the last 7 data:\n')
         clan_members = get_clan_member_ids()
         self.members_data = {}
         for i, member in enumerate(clan_members):
@@ -52,22 +79,44 @@ class Robot:
                 print(e)
 
     def create_excel(self):
+        date_now = dt.date.today()
+        one_weak = dt.timedelta(days=7)
+        last_weak_date = date_now - one_weak
 
-        workbook = Workbook('7days.xlsx')
+        workbook = Workbook(f'battles_{date_now}.xlsx')
         worksheet = workbook.add_worksheet()
-        worksheet.set_column(0, 0, 30)
-        worksheet.set_column(1, 5, 10)
+        formats = get_workbook_formats(workbook)
+
+        worksheet.set_column(0, 0, 25)
+        worksheet.set_column(1, 5, 12)
+        worksheet.set_column(5, 6, 20)
+        worksheet.set_column(9, 11, 25)
         worksheet.freeze_panes(1, 1)
+
+        # sort based on sum:
+        for name, item in self.members_data.items():
+            team_work_sum = sum([int(value) for index, value in enumerate(item) if index > 0])
+            item.append(team_work_sum)
+            item.insert(0, name)
+        list_date = list(self.members_data.values())
+        sorted_data = sorted(list_date, key=itemgetter(6), reverse=True)
+
         # write header
         for i, header in enumerate(self.excel_headers):
-            worksheet.write(0, i, header, )
+            worksheet.write(0, i, header, formats['name_even'])
+        worksheet.write(0, 8, 'Date:', formats['name_even'])
+        worksheet.write(0, 9, f'{last_weak_date} to {date_now}', formats['name_even'])
         # write rows
         row = 1
-        for i, (name, stats) in enumerate(self.members_data.items(), 1):
-            worksheet.write(row, 0, name)
-            for j, stat in enumerate(stats, 1):
-                worksheet.write_number(row, j, int(stat))
+        for i, item in enumerate(sorted_data, 1):
+            format_selector = 'even' if i % 2 == 0 else 'odd'
+            for j, stat in enumerate(item):
+                if j == 0:
+                    worksheet.write(row, j, stat, formats[f'name_{format_selector}'])
+                else:
+                    worksheet.write_number(row, j, int(stat), formats[f'name_{format_selector}'])
             row += 1
+
         workbook.close()
 
 
