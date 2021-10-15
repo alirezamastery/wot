@@ -133,7 +133,7 @@ def get_workbook_formats(workbook):
 
 
 class ExcelOutput:
-    headers = ['Name', 'Random', 'GM 10', 'GM 8', 'Skirmish', 'Stronghold', 'Sum (without random)']
+    headers = ['#', 'Name', 'Random', 'GM 10', 'GM 8', 'Skirmish', 'Stronghold', 'Sum (without random)']
 
     def __init__(self, data: dict):
         date_now = dt.date.today()
@@ -144,11 +144,12 @@ class ExcelOutput:
         worksheet = workbook.add_worksheet()
         formats = get_workbook_formats(workbook)
 
-        worksheet.set_column(0, 0, 30)
-        worksheet.set_column(1, 5, 12)
-        worksheet.set_column(5, 6, 20)
-        worksheet.set_column(9, 11, 25)
-        worksheet.freeze_panes(1, 0)
+        worksheet.set_column(0, 1, 2)
+        worksheet.set_column(1, 2, 30)
+        worksheet.set_column(2, 6, 12)
+        worksheet.set_column(6, 7, 20)
+        worksheet.set_column(10, 12, 25)
+        worksheet.freeze_panes(1, 1)
 
         for name, item in data.items():
             team_work_sum = sum([int(value) for index, value in enumerate(item) if index > 0])
@@ -161,15 +162,16 @@ class ExcelOutput:
         # write header
         for i, header in enumerate(self.headers):
             worksheet.write(0, i, header, formats['name_even'])
-        worksheet.write(0, 8, 'Date:', formats['name_even'])
-        worksheet.write(0, 9, f'{last_weak_date} to {date_now}', formats['name_even'])
+        worksheet.write(0, 9, 'Date:', formats['name_even'])
+        worksheet.write(0, 10, f'{last_weak_date} to {date_now}', formats['name_even'])
 
         # write rows
         row = 1
         for i, item in enumerate(sorted_data, 1):
             format_selector = 'even' if i % 2 == 0 else 'odd'
-            for j, stat in enumerate(item):
-                if j == 0:
+            worksheet.write_number(row, 0, row, formats[f'name_{format_selector}'])
+            for j, stat in enumerate(item, 1):
+                if j == 1:
                     worksheet.write(row, j, stat, formats[f'name_{format_selector}'])
                 else:
                     worksheet.write_number(row, j, int(stat), formats[f'name_{format_selector}'])
